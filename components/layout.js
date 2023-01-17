@@ -4,8 +4,9 @@ import styles from './layout.module.css';
 import utilStyles from '../styles/utils.module.css';
 import Link from 'next/link';
 
-const name = 'NextJs tutorial';
-export const siteTitle = 'Next.js Sample Website';
+const title = 'Artur\'s NextJs tutorial';
+export const description = 'Dummy web site for NextJs playground';
+const img = '/images/photo-sm.png';
 
 export default function Layout({ children, home }) {
   return (
@@ -14,15 +15,18 @@ export default function Layout({ children, home }) {
         <link rel="icon" href="/favicon.ico" />
         <meta
           name="description"
-          content="Learn how to build a personal website using Next.js"
+          content={description}
+        />
+        <meta property="og:title" content={title} />
+        <meta
+          property="og:description"
+          content={description}
         />
         <meta
           property="og:image"
-          content={`https://og-image.vercel.app/${encodeURI(
-            siteTitle,
-          )}.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`}
+          content={img}
         />
-        <meta name="og:title" content={siteTitle} />
+        <meta name="og:title" content={description} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <header className={styles.header}>
@@ -30,20 +34,20 @@ export default function Layout({ children, home }) {
           <>
             <Image
               priority
-              src="/images/photo-sm.png"
+              src={img}
               className={utilStyles.borderCircle}
               height={144}
               width={144}
               alt=""
             />
-            <h1 className={utilStyles.heading2Xl}>{name}</h1>
+            <h1 className={utilStyles.heading2Xl}>{title}</h1>
           </>
         ) : (
           <>
             <Link href="/">
               <Image
                 priority
-                src="/images/photo-sm.png"
+                src={img}
                 className={utilStyles.borderCircle}
                 height={108}
                 width={108}
