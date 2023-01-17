@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import Layout, { siteTitle } from '../components/layout';
+import Layout, { description } from '../components/layout';
 import utilStyles from '../styles/utils.module.css';
 import { getSortedPostsData } from '../lib/posts';
 import Link from 'next/link';
@@ -18,7 +18,7 @@ export default function Home({allPostsData}) {
   return (
     <Layout home>
       <Head>
-        <title>{siteTitle}</title>
+        <title>{description}</title>
       </Head>
       <section className={utilStyles.headingMd}>
         <p>
