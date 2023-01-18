@@ -1,15 +1,24 @@
-import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
-import React from 'react';
+import { GetStaticProps, NextPage } from 'next/types';
 
 import { Date } from '../components/date';
 import { description, Layout } from '../components/layout';
-import { getSortedPostsData, PostMetaType } from '../lib/posts';
+import { GetPostList, PostMetaType } from '../lib/postdata_api';
 import utilStyles from '../styles/utils.module.css';
 
-type PagePropsType = { allPostsData: PostMetaType[] };
-const Page: React.ComponentType<PagePropsType> = ({ allPostsData }) => {
+type PagePropsType = { list: PostMetaType[] };
+
+export const getStaticProps: GetStaticProps<PagePropsType> = async () => {
+  const list = await GetPostList();
+  return {
+    props: {
+      list,
+    },
+  };
+};
+
+const Page: NextPage<PagePropsType> = ({ list }) => {
   return (
     <Layout home>
       <Head>
@@ -21,7 +30,7 @@ const Page: React.ComponentType<PagePropsType> = ({ allPostsData }) => {
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>Blog</h2>
         <ul className={utilStyles.list}>
-          {allPostsData.map(({ id, date, title }) => (
+          {list.map(({ id, date, title }) => (
             <li className={utilStyles.listItem} key={id}>
               <Link href={`/posts/${id}`}>{title}</Link>
               <br />
@@ -36,12 +45,3 @@ const Page: React.ComponentType<PagePropsType> = ({ allPostsData }) => {
   );
 };
 export default Page;
-
-export const getStaticProps: GetStaticProps<PagePropsType> = async () => {
-  const allPostsData = getSortedPostsData();
-  return {
-    props: {
-      allPostsData,
-    },
-  };
-};

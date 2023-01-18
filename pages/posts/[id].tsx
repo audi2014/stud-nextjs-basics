@@ -1,49 +1,58 @@
-import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
-import React, { useEffect } from 'react';
+import { GetStaticPaths, GetStaticProps, NextPage, Redirect } from 'next/types';
+import { ParsedUrlQuery } from 'querystring';
 
 import { Date } from '../../components/date';
 import { Layout } from '../../components/layout';
-import { getAllPostIds, getPostData, PostType } from '../../lib/posts';
+import { GetAllPostIds, GetPost, PostType } from '../../lib/postdata_api';
 import utilStyles from '../../styles/utils.module.css';
 
-type PagePropsType = { postData: PostType };
-const Page: React.ComponentType<PagePropsType> = ({ postData }) => {
-  useEffect(() => {
-    console.log('postData');
-  }, []);
-  return (
-    <Layout>
-      <Head>
-        <title>{postData.title}</title>
-      </Head>
-      <article>
-        <h1 className={utilStyles.headingXl}>{postData.title}</h1>
-        <div className={utilStyles.lightText}>
-          <Date dateString={postData.date} />
-        </div>
-        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
-      </article>
-    </Layout>
-  );
-};
-export default Page;
+interface Params extends ParsedUrlQuery {
+  id: string;
+}
+type PagePropsType = { post: PostType };
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = getAllPostIds();
+export const getStaticPaths: GetStaticPaths<Params> = async () => {
+  const paths = await GetAllPostIds();
   return {
     paths,
     fallback: false,
   };
 };
 
-export const getStaticProps: GetStaticProps<PagePropsType, { id: string }> = async ({
-  params,
-}) => {
-  const postData = await getPostData(params?.id ?? '');
+export const getStaticProps: GetStaticProps<
+  PagePropsType | { redirect: Redirect },
+  Params
+> = async (context) => {
+  const post = await GetPost(context.params?.id ?? '');
+  if (!post) {
+    return {
+      redirect: {
+        destination: '/',
+      } as Redirect,
+    };
+  }
   return {
     props: {
-      postData,
-    },
+      post,
+    } as PagePropsType,
   };
 };
+
+const Page: NextPage<PagePropsType> = ({ post }) => {
+  return (
+    <Layout>
+      <Head>
+        <title>{post.title}</title>
+      </Head>
+      <article>
+        <h1 className={utilStyles.headingXl}>{post.title}</h1>
+        <div className={utilStyles.lightText}>
+          <Date dateString={post.date} />
+        </div>
+        <div dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
+      </article>
+    </Layout>
+  );
+};
+export default Page;
