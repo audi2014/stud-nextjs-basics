@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { GetStaticPaths, GetStaticProps, NextPage, Redirect } from 'next/types';
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next/types';
 import { ParsedUrlQuery } from 'querystring';
 
 import { Date } from '../../components/date';
@@ -13,25 +13,15 @@ interface Params extends ParsedUrlQuery {
 type PagePropsType = { post: PostType };
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
-  const paths = await GetAllPostIds();
+  const ids = await GetAllPostIds();
   return {
-    paths,
+    paths: ids.map((id) => ({ params: { id } })),
     fallback: false,
   };
 };
 
-export const getStaticProps: GetStaticProps<
-  PagePropsType | { redirect: Redirect },
-  Params
-> = async (context) => {
+export const getStaticProps: GetStaticProps<PagePropsType, Params> = async (context) => {
   const post = await GetPost(context.params?.id ?? '');
-  if (!post) {
-    return {
-      redirect: {
-        destination: '/',
-      } as Redirect,
-    };
-  }
   return {
     props: {
       post,
