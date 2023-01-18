@@ -2,10 +2,10 @@ import Head from 'next/head';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next/types';
 import { ParsedUrlQuery } from 'querystring';
 
-import { Date } from '../../components/date';
-import { Layout } from '../../components/layout';
-import { GetAllPostIds, GetPost, PostType } from '../../lib/postdata_api';
-import utilStyles from '../../styles/utils.module.css';
+import { Date } from '@/components/date';
+import { Layout } from '@/components/layout';
+import { GetAllPostIds, GetPost, PostType } from '@/lib/postdata_api';
+import utilStyles from '@/styles/utils.module.css';
 
 interface Params extends ParsedUrlQuery {
   id: string;

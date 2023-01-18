@@ -3,7 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { PropsWithChildren } from 'react';
 
-import utilStyles from '../styles/utils.module.css';
+import utilStyles from '@/styles/utils.module.css';
+
 import styles from './layout.module.css';
 
 const title = "Artur's NextJs tutorial";

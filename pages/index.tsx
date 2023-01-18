@@ -2,10 +2,10 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { GetStaticProps, NextPage } from 'next/types';
 
-import { Date } from '../components/date';
-import { description, Layout } from '../components/layout';
-import { GetPostList, PostMetaType } from '../lib/postdata_api';
-import utilStyles from '../styles/utils.module.css';
+import { Date } from '@/components/date';
+import { description, Layout } from '@/components/layout';
+import { GetPostList, PostMetaType } from '@/lib/postdata_api';
+import utilStyles from '@/styles/utils.module.css';
 
 type PagePropsType = { list: PostMetaType[] };
 
