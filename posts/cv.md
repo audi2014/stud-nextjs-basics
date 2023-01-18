@@ -32,7 +32,7 @@ creating new frameworks and development approaches. And that's what fascinates m
 ## Projects
 
 | Name                                                                       | Description                                                                                                                                                                           | Tech/tools                                                               |
-|----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------|
+| -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
 | **[OpenGeeksLab](https://opengeekslab.com/) team outsource project (NDA)** | A super cool platform for drivers and fleets, who are looking for each other. Like Upwork for drivers with trucks. Have a separate functionality for Drivers, Fleets, and Admin panel | TS, ReactJs, React-Native, Mui, NestJs, Mongoose, AWS, RtkQuery, Segment |
 | **[Queen Car](https://app.queencar.ca/)**                                  | Taxi service in Jordan and several other countries. Mobile apps for customers and drivers like Uber                                                                                   | Objective-C/Swift, Java/Kotlin, Node.Js, express                         |
 | **Terox 🪦**                                                               | Music Distribution Service                                                                                                                                                            | PHP 7.3, slimframework 4                                                 |
@@ -61,7 +61,7 @@ creating new frameworks and development approaches. And that's what fascinates m
   - Gained experience working in a Multiple Time Zone Team
   - ❤️ Unit testing
 
-**[OpenGeeksLab](https://opengeekslab.com/)** (Mar 2020 - Aug 2020)  Full-stack developer
+**[OpenGeeksLab](https://opengeekslab.com/)** (Mar 2020 - Aug 2020) Full-stack developer
 
 - Responsibilities
   - Implementation of api services for music distribution service like [amuse](https://www.amuse.io/en/)
@@ -88,6 +88,7 @@ creating new frameworks and development approaches. And that's what fascinates m
 **[Pro Creations Development Group](https://www.upwork.com/o/companies/~019e7bd3dd46121773/)** (Nov 2015 to Sep 2019) Web developer / Mobile native developer
 
 - Responsibilities
+
   - Development of various software. (Medical cli, native sdk for vpn integration, api services, mobile apps, web
     apps)
 
@@ -101,6 +102,7 @@ creating new frameworks and development approaches. And that's what fascinates m
 **[Pro Creations Development Group](https://www.upwork.com/o/companies/~019e7bd3dd46121773/)** (Sep 2015 to Nov 2015) Mobile Game developer (trainee)
 
 - Responsibilities
+
   - Learning game-dev engines / frameworks like Cocos2d-x, unity3d
   - Adds integration (AdMob)
   - Testing of legacy projects / bug-fixing
@@ -117,11 +119,10 @@ creating new frameworks and development approaches. And that's what fascinates m
 
 [![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)
 <span style="border-radius: 5px; padding: 2px 2px 0 2px; background: linear-gradient(30deg, #ffd700, #0057b8); color:#333333">
-t.me/x<span style="color:#0057b8">0057b8</span>_<span style="color:#ffd700">ffd700</span>
+t.me/x<span style="color:#0057b8">0057b8</span>\_<span style="color:#ffd700">ffd700</span>
 </span>
 ](https://t.me/x0057b8_ffd700)
 
 [![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=whit) linkedin.com/in/artur-perepelytsa-412622173](https://www.linkedin.com/in/artur-perepelytsa-412622173/)
-
 
 <img src="/images/photo.jpg" height="256px" alt="photo">

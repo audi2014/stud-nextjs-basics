@@ -1,29 +1,22 @@
+import { GetStaticProps } from 'next';
 import Head from 'next/head';
-import Layout, { description } from '../components/layout';
-import utilStyles from '../styles/utils.module.css';
-import { getSortedPostsData } from '../lib/posts';
 import Link from 'next/link';
-import Date from '../components/date';
+import React from 'react';
 
-export async function getStaticProps() {
-  const allPostsData = getSortedPostsData();
-  return {
-    props: {
-      allPostsData,
-    },
-  };
-}
+import { Date } from '../components/date';
+import { description, Layout } from '../components/layout';
+import { getSortedPostsData, PostMetaType } from '../lib/posts';
+import utilStyles from '../styles/utils.module.css';
 
-export default function Home({allPostsData}) {
+type PagePropsType = { allPostsData: PostMetaType[] };
+const Page: React.ComponentType<PagePropsType> = ({ allPostsData }) => {
   return (
     <Layout home>
       <Head>
         <title>{description}</title>
       </Head>
       <section className={utilStyles.headingMd}>
-        <p>
-          This is a sample website from Next.js tutorial
-        </p>
+        <p>This is a sample website from Next.js tutorial</p>
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>Blog</h2>
@@ -41,4 +34,14 @@ export default function Home({allPostsData}) {
       </section>
     </Layout>
   );
-}
+};
+export default Page;
+
+export const getStaticProps: GetStaticProps<PagePropsType> = async () => {
+  const allPostsData = getSortedPostsData();
+  return {
+    props: {
+      allPostsData,
+    },
+  };
+};
