@@ -1,15 +1,15 @@
 import fs from 'fs';
-import path from 'path';
 import matter from 'gray-matter';
+import path from 'path';
+import rehypeStringify from 'rehype-stringify';
 import { remark } from 'remark';
-import remarkGfm from 'remark-gfm'
-import remarkParse from 'remark-parse'
-import remarkRehype from 'remark-rehype'
-import rehypeStringify from 'rehype-stringify'
+import remarkGfm from 'remark-gfm';
+import remarkParse from 'remark-parse';
+import remarkRehype from 'remark-rehype';
 
 const postsDirectory = path.join(process.cwd(), 'posts');
 
-export function getSortedPostsData() {
+export const getSortedPostsData = () => {
   // Get file names under /posts
   const fileNames = fs.readdirSync(postsDirectory);
   const allPostsData = fileNames.map((fileName) => {
@@ -26,7 +26,7 @@ export function getSortedPostsData() {
     // Combine the data with the id
     return {
       id,
-      ...matterResult.data,
+      ...(matterResult.data as { title: string; date: string }),
     };
   });
   // Sort posts by date
@@ -37,24 +37,10 @@ export function getSortedPostsData() {
       return -1;
     }
   });
-}
+};
 
-export function getAllPostIds() {
+export const getAllPostIds = () => {
   const fileNames = fs.readdirSync(postsDirectory);
-
-  // Returns an array that looks like this:
-  // [
-  //   {
-  //     params: {
-  //       id: 'ssg-ssr'
-  //     }
-  //   },
-  //   {
-  //     params: {
-  //       id: 'pre-rendering'
-  //     }
-  //   }
-  // ]
   return fileNames.map((fileName) => {
     return {
       params: {
@@ -62,22 +48,20 @@ export function getAllPostIds() {
       },
     };
   });
-}
+};
 
-export async function getPostData(id) {
+export const getPostData = async (id: string) => {
   const fullPath = path.join(postsDirectory, `${id}.md`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
 
   // Use gray-matter to parse the post metadata section
   const matterResult = matter(fileContents);
 
-  // Use remark to convert markdown into HTML string
   const processedContent = await remark()
-    // .use(html, {allowDangerousHtml: true, allowDangerousCharacters: true})
     .use(remarkGfm)
     .use(remarkParse)
-    .use(remarkRehype, {allowDangerousHtml: true})
-    .use(rehypeStringify, {allowDangerousHtml: true})
+    .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeStringify, { allowDangerousHtml: true })
     .process(matterResult.content);
   const contentHtml = processedContent.toString();
 
@@ -85,6 +69,9 @@ export async function getPostData(id) {
   return {
     id,
     contentHtml,
-    ...matterResult.data,
+    ...(matterResult.data as { title: string; date: string }),
   };
-}
+};
+
+export type PostType = Awaited<ReturnType<typeof getPostData>>;
+export type PostMetaType = Awaited<ReturnType<typeof getSortedPostsData>>[number];
