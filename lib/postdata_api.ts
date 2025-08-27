@@ -9,7 +9,19 @@ import remarkRehype from 'remark-rehype';
 
 const postsDirectory = path.join(process.cwd(), 'posts');
 
-export const getSortedPostsData = () => {
+export type PostIdType = string;
+
+export type PostMetaType = {
+  id: PostIdType;
+  title: string;
+  date: string;
+};
+
+export type PostType = PostMetaType & {
+  contentHtml: string;
+};
+
+export const GetPostList = async (): Promise<PostMetaType[]> => {
   // Get file names under /posts
   const fileNames = fs.readdirSync(postsDirectory);
   const allPostsData = fileNames.map((fileName) => {
@@ -39,20 +51,15 @@ export const getSortedPostsData = () => {
   });
 };
 
-export const getAllPostIds = () => {
+export const GetAllPostIds = async (): Promise<PostIdType[]> => {
   const fileNames = fs.readdirSync(postsDirectory);
-  return fileNames.map((fileName) => {
-    return {
-      params: {
-        id: fileName.replace(/\.md$/, ''),
-      },
-    };
-  });
+  return fileNames.map((fileName) => fileName.replace(/\.md$/, ''));
 };
 
-export const getPostData = async (id: string) => {
+export const GetPost = async (id: string): Promise<PostType | null> => {
   const fullPath = path.join(postsDirectory, `${id}.md`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
+  if (!fileContents) return null;
 
   // Use gray-matter to parse the post metadata section
   const matterResult = matter(fileContents);
@@ -72,6 +79,3 @@ export const getPostData = async (id: string) => {
     ...(matterResult.data as { title: string; date: string }),
   };
 };
-
-export type PostType = Awaited<ReturnType<typeof getPostData>>;
-export type PostMetaType = Awaited<ReturnType<typeof getSortedPostsData>>[number];
